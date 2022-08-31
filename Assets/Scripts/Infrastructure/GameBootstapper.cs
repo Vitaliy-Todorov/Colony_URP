@@ -10,9 +10,7 @@ namespace Assets.Scripts.Infrastructure
 
         private void Awake()
         {
-            ICoroutineRannerService canvasRaycastFilter = gameObject.AddComponent<CoroutineRannerService>();
-
-            _gameStateMachine = new GameStateMachine(canvasRaycastFilter);
+            _gameStateMachine = new GameStateMachine(this);
             _gameStateMachine.Enter<BootsrapState>();
 
             DontDestroyOnLoad(this);

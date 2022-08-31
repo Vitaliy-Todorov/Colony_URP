@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Infrastructure.States.CoroutineRunner
 {
-    public interface ICoroutineRannerService : IServices
+    public interface ICoroutineRannerService : IService
     {
         Coroutine StartCoroutine(IEnumerator coroutine);
     }

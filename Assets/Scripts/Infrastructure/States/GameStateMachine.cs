@@ -1,3 +1,4 @@
+using Assets.Scripts.Infrastructure.Services.AllServices;
 using Assets.Scripts.Infrastructure.States.CoroutineRunner;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,19 @@ namespace Assets.Scripts.Infrastructure.States
         private ICoroutineRannerService _coroutineRannerService;
         private Dictionary<Type, IExictablState> _states;
         private IExictablState _activeState;
+        private GameBootstapper _gameBootstapper;
+        private AllServices _containerServices;
 
-        public GameStateMachine(ICoroutineRannerService coroutineRannerService)
+        public GameStateMachine(GameBootstapper gameBootstapper)
         {
-            _coroutineRannerService = coroutineRannerService;
+            _gameBootstapper = gameBootstapper;
+            _containerServices = AllServices.Container;
 
             _states = new Dictionary<Type, IExictablState>()
             {
-                [typeof(BootsrapState)] = new BootsrapState(this),
+                [typeof(BootsrapState)] = new BootsrapState(this, _gameBootstapper, _containerServices),
                 [typeof(LoadLevelState)] = new LoadLevelState(this),
-                [typeof(SceneLoaderState)] = new SceneLoaderState(this, _coroutineRannerService),
+                [typeof(SceneLoaderState)] = new SceneLoaderState( this, _containerServices.GetService<ICoroutineRannerService>() ),
             };
         }
 
