@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Infrastructure.Services;
 using UnityEngine;
 
-public class Factory : MonoBehaviour
+namespace Assets.Scripts.Infrastructure.States
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Factory : MonoBehaviour, IServices
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -1,4 +1,5 @@
 using Assets.Scripts.Infrastructure.States;
+using Assets.Scripts.Infrastructure.States.CoroutineRunner;
 using UnityEngine;
 
 namespace Assets.Scripts.Infrastructure
@@ -9,7 +10,9 @@ namespace Assets.Scripts.Infrastructure
 
         private void Awake()
         {
-            _gameStateMachine = new GameStateMachine();
+            ICoroutineRannerService canvasRaycastFilter = gameObject.AddComponent<CoroutineRannerService>();
+
+            _gameStateMachine = new GameStateMachine(canvasRaycastFilter);
             _gameStateMachine.Enter<BootsrapState>();
 
             DontDestroyOnLoad(this);

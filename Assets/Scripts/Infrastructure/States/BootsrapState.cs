@@ -1,12 +1,23 @@
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Infrastructure.States
 {
-    public class BootsrapState : IState
+    public partial class BootsrapState : IState
     {
+        private const string _main = "Main";
+        GameStateMachine _gameStateMachine;
+
+        public BootsrapState(GameStateMachine gameStateMachine)
+        {
+            _gameStateMachine = gameStateMachine;
+
+            // RegisterServices();
+        }
+
         public void Enter()
         {
-            Debug.Log("BootsrapState");
+            _gameStateMachine.Enter<LoadLevelState, string>(_main);
         }
 
         public void Exit()
