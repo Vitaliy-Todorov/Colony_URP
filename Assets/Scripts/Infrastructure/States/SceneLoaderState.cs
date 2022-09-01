@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Infrastructure.States.CoroutineRunner;
 using System;
 using System.Collections;
+using Unity.Entities;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,10 +38,12 @@ namespace Assets.Scripts.Infrastructure.States
             }
 
             AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
+            World.DisposeAllWorlds();
 
             while (!waitNextScene.isDone)
                 yield return null;
 
+            DefaultWorldInitialization.Initialize(nextScene, false);
             OnSceneLoad?.Invoke();
         }
     }
