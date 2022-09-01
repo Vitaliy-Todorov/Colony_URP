@@ -32,7 +32,15 @@ namespace Assets.Scripts.Infrastructure.States
 
         private void RegisterServices()
         {
-            _containerServices.RegisterService<ICoroutineRannerService>(CoroutineRanner() );
+            _containerServices.RegisterService<ICoroutineRannerService>( CoroutineRanner() );
+            _containerServices.RegisterService<AssetProviderService>( new AssetProviderService() );
+            _containerServices.RegisterService<FactoryService>( Factory() );
+        }
+
+        private FactoryService Factory()
+        {
+            AssetProviderService assetProvider = _containerServices.GetService<AssetProviderService>();
+            return new FactoryService(assetProvider);
         }
 
         private CoroutineRannerService CoroutineRanner()

@@ -1,15 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.Infrastructure.States
 {
     public class LoadLevelState : IPlayLoadState<string>, IState
     {
-        private GameStateMachine _gameStateMachine;
+        private readonly GameStateMachine _gameStateMachine;
+        private readonly FactoryService _factory;
 
-        public LoadLevelState(GameStateMachine gameStateMachine)
+        public LoadLevelState(GameStateMachine gameStateMachine, FactoryService factory)
         {
             _gameStateMachine = gameStateMachine;
+            _factory = factory;
         }
 
         public void Enter(string levelName, Action onLoad)
@@ -30,7 +33,8 @@ namespace Assets.Scripts.Infrastructure.States
         {
             _gameStateMachine.Enter<LoadLevelState>();
 
-            Debug.Log("OnLoad");
+            _factory.CreateUnit();
+            Debug.Log($"OnSceneLoad {SceneManager.GetActiveScene().name}");
         }
     }
 }

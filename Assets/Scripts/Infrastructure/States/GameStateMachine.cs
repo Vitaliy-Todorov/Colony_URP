@@ -22,7 +22,7 @@ namespace Assets.Scripts.Infrastructure.States
             _states = new Dictionary<Type, IExictablState>()
             {
                 [typeof(BootsrapState)] = new BootsrapState(this, _gameBootstapper, _containerServices),
-                [typeof(LoadLevelState)] = new LoadLevelState(this),
+                [typeof(LoadLevelState)] = new LoadLevelState( this, _containerServices.GetService<FactoryService>() ),
                 [typeof(SceneLoaderState)] = new SceneLoaderState( this, _containerServices.GetService<ICoroutineRannerService>() ),
             };
         }
